@@ -32,7 +32,7 @@ class RequestProvider {
     bool useSecureProtocol = useSecureProtocol,
     Map<String, String> customHeaders = const {},
   }) async {
-    print("[@Go Fitness] < $method > request: $api$path\n");
+    print("[@LALO] < $method > request: $api$path\n");
 
     const timeout = Duration(seconds: 30);
 
