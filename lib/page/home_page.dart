@@ -56,13 +56,7 @@ class BuildHome extends StatelessWidget {
                           width: _responsive.widthCustom(.7),
                           // child: TextFormField(
                           //   onChanged: (value) {
-                          //     if (value.length > 0) {
-                          //       _homeBloc.add(ChangeTextToSearch(value));
-                          //     } else {
-                          //       FocusScope.of(context).unfocus();
-                          //       if (state.homeStatus == HomeEnum.withSearch) {
-                          //         _homeBloc.add(LoadFirstBooks());
-                          //       }
+
                           //     }
                           //   },
                           //   decoration: InputDecoration(
@@ -91,13 +85,25 @@ class BuildHome extends StatelessWidget {
                             maxSuggestionsInViewPort: 6,
                             itemHeight: 50,
                             onTap: (v) {
-                              print(v);
+                              _homeBloc.add(ChangeTextToSearch(v));
+                            },
+                            onChanged: (value) {
+                              if (value.isNotEmpty) {
+                                _homeBloc.add(ChangeTextToSearch(value));
+                              } else {
+                                FocusScope.of(context).unfocus();
+                                if (state.homeStatus == HomeEnum.withSearch) {
+                                  _homeBloc.add(LoadFirstBooks());
+                                }
+                              }
                             },
                           ),
                         ),
                         TextButton(
                           child: Text("Buscar"),
-                          onPressed: () {},
+                          onPressed: () {
+                            _homeBloc.add(SearchText());
+                          },
                         ),
                       ],
                     ),
@@ -107,6 +113,11 @@ class BuildHome extends StatelessWidget {
                       : Expanded(
                           child: BlocBuilder<HomeBloc, HomeState>(
                             builder: (context, state) {
+                              if (state.bookData.books.length == 0) {
+                                return Center(
+                                    child: Text(
+                                        "There are no books on the shelf"));
+                              }
                               return ListView.builder(
                                 itemCount: state.bookData.books.length,
                                 itemBuilder: (context, index) {
