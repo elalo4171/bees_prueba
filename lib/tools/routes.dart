@@ -15,7 +15,7 @@ Route Function(RouteSettings) get routes => (RouteSettings settings) {
           break;
         case "book":
           route = MaterialPageRoute(
-            builder: (_) => BookPage(),
+            builder: (_) => BookPage(settings.arguments),
             settings: RouteSettings(name: settings.name),
           );
           break;

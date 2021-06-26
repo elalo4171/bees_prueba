@@ -118,30 +118,35 @@ class BookWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _responsive = Responsive(context);
-    return FadeIn(
-      duration: Duration(milliseconds: 150 * index),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.network(
-            book.image,
-            height: 100,
-            width: _responsive.widthCustom(.2),
-          ),
-          SizedBox(
-            width: _responsive.widthCustom(.7),
-            child: ListTile(
-              title: Text(book.title),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(book.subtitle),
-                  Text(book.price),
-                ],
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, "book", arguments: book);
+      },
+      child: FadeIn(
+        delay: Duration(milliseconds: 200),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(
+              book.image,
+              height: 100,
+              width: _responsive.widthCustom(.2),
+            ),
+            SizedBox(
+              width: _responsive.widthCustom(.7),
+              child: ListTile(
+                title: Text(book.title),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(book.subtitle),
+                    Text(book.price),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

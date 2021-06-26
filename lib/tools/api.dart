@@ -7,4 +7,7 @@ class Api {
 
   static String Function(String) get search =>
       (String query) => "/1.0/search/$query";
+
+  static String Function(String) get book =>
+      (String isbn13) => "/books/$isbn13";
 }
