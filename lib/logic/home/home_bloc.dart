@@ -28,5 +28,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         requestStatus: RequestStatus.success,
       );
     }
+    if (event is ChangeTextToSearch) {
+      yield state.copyWith(textToSearch: event.text);
+    }
+    if (event is SearchText) {
+      if (state.textToSearch.length > 0) {
+        yield state.copyWith(requestStatus: RequestStatus.waiting);
+        final bookData = await restApi.searchBooks(state.textToSearch);
+        yield state.copyWith(
+          bookData: bookData,
+          homeStatus: HomeEnum.withSearch,
+          requestStatus: RequestStatus.success,
+        );
+      }
+    }
   }
 }

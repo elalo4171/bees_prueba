@@ -5,21 +5,25 @@ class HomeState extends Equatable {
     this.bookData,
     this.homeStatus = HomeEnum.empty,
     this.requestStatus = RequestStatus.empty,
+    this.textToSearch = "",
   });
 
   final BookData bookData;
   final HomeEnum homeStatus;
   final RequestStatus requestStatus;
+  final String textToSearch;
 
   copyWith({
     BookData bookData,
     HomeEnum homeStatus,
     RequestStatus requestStatus,
+    String textToSearch,
   }) =>
       HomeState(
         bookData: bookData ?? this.bookData,
         homeStatus: homeStatus ?? this.homeStatus,
         requestStatus: requestStatus ?? this.requestStatus,
+        textToSearch: textToSearch ?? this.textToSearch,
       );
 
   @override
@@ -27,5 +31,6 @@ class HomeState extends Equatable {
         bookData,
         homeStatus,
         requestStatus,
+        textToSearch,
       ];
 }

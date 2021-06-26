@@ -5,3 +5,11 @@ abstract class HomeEvent {
 }
 
 class LoadFirstBooks extends HomeEvent {}
+
+class ChangeTextToSearch extends HomeEvent {
+  final String text;
+
+  ChangeTextToSearch(this.text);
+}
+
+class SearchText extends HomeEvent {}

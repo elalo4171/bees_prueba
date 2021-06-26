@@ -5,8 +5,6 @@ class Api {
 
   static const news = "/1.0/new";
 
-  ///
-  //request with params
-  // static String Function(String) get user =>
-  //     (String userId) => "/api/diary?date=2021-05-19&day_type=training";
+  static String Function(String) get search =>
+      (String query) => "/1.0/search/$query";
 }

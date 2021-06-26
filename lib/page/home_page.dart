@@ -26,6 +26,7 @@ class BuildHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _responsive = Responsive(context);
+    final _homeBloc = context.watch<HomeBloc>();
 
     return Scaffold(
         appBar: AppBar(
@@ -53,10 +54,22 @@ class BuildHome extends StatelessWidget {
                         SizedBox(
                             width: _responsive.widthCustom(.85),
                             child: TextFormField(
+                              onChanged: (value) {
+                                if (value.length > 0) {
+                                  _homeBloc.add(ChangeTextToSearch(value));
+                                } else {
+                                  FocusScope.of(context).unfocus();
+                                  if (state.homeStatus == HomeEnum.withSearch) {
+                                    _homeBloc.add(LoadFirstBooks());
+                                  }
+                                }
+                              },
                               decoration: InputDecoration(
                                 hintText: "Buscar",
                                 suffix: TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    _homeBloc.add(SearchText());
+                                  },
                                   child: Text('Buscar'),
                                 ),
                               ),
@@ -64,19 +77,22 @@ class BuildHome extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: BlocBuilder<HomeBloc, HomeState>(
-                      builder: (context, state) {
-                        return ListView.builder(
-                          itemCount: state.bookData.books.length,
-                          itemBuilder: (context, index) {
-                            BookElement book = state.bookData.books[index];
-                            return BookWidget(book: book);
-                          },
-                        );
-                      },
-                    ),
-                  ),
+                  state.requestStatus == RequestStatus.waiting
+                      ? Center(child: CircularProgressIndicator())
+                      : Expanded(
+                          child: BlocBuilder<HomeBloc, HomeState>(
+                            builder: (context, state) {
+                              return ListView.builder(
+                                itemCount: state.bookData.books.length,
+                                itemBuilder: (context, index) {
+                                  BookElement book =
+                                      state.bookData.books[index];
+                                  return BookWidget(book: book);
+                                },
+                              );
+                            },
+                          ),
+                        ),
                 ],
               );
             },

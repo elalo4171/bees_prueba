@@ -9,4 +9,11 @@ class RestApi {
     final response = await _requestProvider.request(Api.server, Api.news);
     return BookData.fromJson(response.body);
   }
+
+  Future<BookData> searchBooks(String query) async {
+    final response =
+        await _requestProvider.request(Api.server, Api.search(query));
+    return BookData.fromJson(response.body);
+    // return BookData.fromJson(response.body);
+  }
 }
