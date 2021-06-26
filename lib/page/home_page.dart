@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:bees_prueba/logic/home/home_bloc.dart';
 import 'package:bees_prueba/model/books.dart';
 import 'package:bees_prueba/tools/enums.dart';
@@ -87,7 +88,10 @@ class BuildHome extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   BookElement book =
                                       state.bookData.books[index];
-                                  return BookWidget(book: book);
+                                  return BookWidget(
+                                    book: book,
+                                    index: index,
+                                  );
                                 },
                               );
                             },
@@ -105,14 +109,17 @@ class BookWidget extends StatelessWidget {
   const BookWidget({
     Key key,
     @required this.book,
+    @required this.index,
   }) : super(key: key);
 
   final BookElement book;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     final _responsive = Responsive(context);
-    return SizedBox(
+    return FadeIn(
+      duration: Duration(milliseconds: 150 * index),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
