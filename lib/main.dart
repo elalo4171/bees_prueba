@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'Bees',
       initialRoute: "home",
       onGenerateRoute: routes,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

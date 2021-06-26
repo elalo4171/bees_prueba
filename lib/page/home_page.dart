@@ -25,23 +25,57 @@ class BuildHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
-        if (state.homeStatus == HomeEnum.empty) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          return ListView.builder(
-            itemCount: state.bookData.books.length,
-            itemBuilder: (context, index) {
-              BookElement book = state.bookData.books[index];
-              return BookWidget(book: book);
+    final _responsive = Responsive(context);
+
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Libros",
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.white,
+        ),
+        body: SafeArea(
+          child: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state.homeStatus == HomeEnum.empty) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Column(
+                children: [
+                  Container(
+                    height: _responsive.heightCustom(.1),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                            width: _responsive.widthCustom(.8),
+                            child: TextFormField(
+                              decoration: InputDecoration(hintText: "Buscar"),
+                            ))
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: BlocBuilder<HomeBloc, HomeState>(
+                      builder: (context, state) {
+                        return ListView.builder(
+                          itemCount: state.bookData.books.length,
+                          itemBuilder: (context, index) {
+                            BookElement book = state.bookData.books[index];
+                            return BookWidget(book: book);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
             },
-          );
-        }
-      },
-    ));
+          ),
+        ));
   }
 }
 
