@@ -6,24 +6,28 @@ class HomeState extends Equatable {
     this.homeStatus = HomeEnum.empty,
     this.requestStatus = RequestStatus.empty,
     this.textToSearch = "",
+    this.lastSearch = const [],
   });
 
   final BookData bookData;
   final HomeEnum homeStatus;
   final RequestStatus requestStatus;
   final String textToSearch;
+  final List<String> lastSearch;
 
   copyWith({
     BookData bookData,
     HomeEnum homeStatus,
     RequestStatus requestStatus,
     String textToSearch,
+    List<String> lastSearch,
   }) =>
       HomeState(
         bookData: bookData ?? this.bookData,
         homeStatus: homeStatus ?? this.homeStatus,
         requestStatus: requestStatus ?? this.requestStatus,
         textToSearch: textToSearch ?? this.textToSearch,
+        lastSearch: lastSearch ?? this.lastSearch,
       );
 
   @override
@@ -32,5 +36,6 @@ class HomeState extends Equatable {
         homeStatus,
         requestStatus,
         textToSearch,
+        lastSearch,
       ];
 }

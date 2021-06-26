@@ -54,35 +54,10 @@ class BuildHome extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: _responsive.widthCustom(.7),
-                          // child: TextFormField(
-                          //   onChanged: (value) {
-
-                          //     }
-                          //   },
-                          //   decoration: InputDecoration(
-                          //     hintText: "Buscar",
-                          //     suffix: TextButton(
-                          //       onPressed: () {
-                          //         _homeBloc.add(SearchText());
-                          //       },
-                          //       child: Text('Buscar'),
-                          //     ),
-                          //   ),
-                          // ),
                           child: SearchField(
-                            suggestions: [
-                              'United States',
-                              'America',
-                              'Washington',
-                              'India',
-                              'Paris',
-                              'Jakarta',
-                              'Australia',
-                              'Lorem Ipsum'
-                            ],
+                            suggestions: state.lastSearch,
                             hint: 'Buscar',
-                            hasOverlay: true,
-                            maxSuggestionsInViewPort: 6,
+                            maxSuggestionsInViewPort: 2,
                             itemHeight: 50,
                             onTap: (v) {
                               _homeBloc.add(ChangeTextToSearch(v));
