@@ -2,6 +2,7 @@ import 'package:bees_prueba/model/book.dart';
 import 'package:bees_prueba/model/books.dart';
 import 'package:bees_prueba/tools/rest_api.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BookPage extends StatefulWidget {
   const BookPage(
@@ -28,6 +29,10 @@ class _BookPageState extends State<BookPage> {
     thisBook = await restApi.getBook(widget.book.isbn13);
     setState(() {});
   }
+
+  void _launchURL() async => await canLaunch(thisBook.url)
+      ? await launch(thisBook.url)
+      : throw 'Could not launch $thisBook.url';
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +75,12 @@ class _BookPageState extends State<BookPage> {
                     title: Text("Pages"),
                     subtitle: Text(thisBook.pages),
                   ),
+                  TextButton(
+                    child: Text("Show in browser"),
+                    onPressed: () {
+                      _launchURL();
+                    },
+                  )
                 ],
               ));
   }
