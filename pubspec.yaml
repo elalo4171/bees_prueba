@@ -17,6 +17,7 @@ dependencies:
   http: ^0.13.3
   animate_do: ^2.0.0
   url_launcher: ^6.0.7
+  searchfield: ^0.5.2
 
 dev_dependencies:
   flutter_test:

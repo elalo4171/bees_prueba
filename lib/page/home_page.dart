@@ -6,6 +6,7 @@ import 'package:bees_prueba/tools/responsive.dart';
 import 'package:bees_prueba/tools/rest_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:searchfield/searchfield.dart';
 
 class HomePage extends StatelessWidget {
   final _restApi = RestApi();
@@ -13,7 +14,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => HomeBloc(_restApi),
-      lazy: false,
       child: BuildHome(),
     );
   }
@@ -53,28 +53,52 @@ class BuildHome extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                            width: _responsive.widthCustom(.85),
-                            child: TextFormField(
-                              onChanged: (value) {
-                                if (value.length > 0) {
-                                  _homeBloc.add(ChangeTextToSearch(value));
-                                } else {
-                                  FocusScope.of(context).unfocus();
-                                  if (state.homeStatus == HomeEnum.withSearch) {
-                                    _homeBloc.add(LoadFirstBooks());
-                                  }
-                                }
-                              },
-                              decoration: InputDecoration(
-                                hintText: "Buscar",
-                                suffix: TextButton(
-                                  onPressed: () {
-                                    _homeBloc.add(SearchText());
-                                  },
-                                  child: Text('Buscar'),
-                                ),
-                              ),
-                            ))
+                          width: _responsive.widthCustom(.7),
+                          // child: TextFormField(
+                          //   onChanged: (value) {
+                          //     if (value.length > 0) {
+                          //       _homeBloc.add(ChangeTextToSearch(value));
+                          //     } else {
+                          //       FocusScope.of(context).unfocus();
+                          //       if (state.homeStatus == HomeEnum.withSearch) {
+                          //         _homeBloc.add(LoadFirstBooks());
+                          //       }
+                          //     }
+                          //   },
+                          //   decoration: InputDecoration(
+                          //     hintText: "Buscar",
+                          //     suffix: TextButton(
+                          //       onPressed: () {
+                          //         _homeBloc.add(SearchText());
+                          //       },
+                          //       child: Text('Buscar'),
+                          //     ),
+                          //   ),
+                          // ),
+                          child: SearchField(
+                            suggestions: [
+                              'United States',
+                              'America',
+                              'Washington',
+                              'India',
+                              'Paris',
+                              'Jakarta',
+                              'Australia',
+                              'Lorem Ipsum'
+                            ],
+                            hint: 'Buscar',
+                            hasOverlay: true,
+                            maxSuggestionsInViewPort: 6,
+                            itemHeight: 50,
+                            onTap: (v) {
+                              print(v);
+                            },
+                          ),
+                        ),
+                        TextButton(
+                          child: Text("Buscar"),
+                          onPressed: () {},
+                        ),
                       ],
                     ),
                   ),
