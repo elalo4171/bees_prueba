@@ -1,6 +1,7 @@
 import 'package:bees_prueba/logic/home/home_bloc.dart';
 import 'package:bees_prueba/model/books.dart';
 import 'package:bees_prueba/tools/enums.dart';
+import 'package:bees_prueba/tools/responsive.dart';
 import 'package:bees_prueba/tools/rest_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,14 +36,50 @@ class BuildHome extends StatelessWidget {
             itemCount: state.bookData.books.length,
             itemBuilder: (context, index) {
               BookElement book = state.bookData.books[index];
-              return ListTile(
-                title: Text(book.title),
-                subtitle: Text(book.subtitle),
-              );
+              return BookWidget(book: book);
             },
           );
         }
       },
     ));
+  }
+}
+
+class BookWidget extends StatelessWidget {
+  const BookWidget({
+    Key key,
+    @required this.book,
+  }) : super(key: key);
+
+  final BookElement book;
+
+  @override
+  Widget build(BuildContext context) {
+    final _responsive = Responsive(context);
+    return SizedBox(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.network(
+            book.image,
+            height: 100,
+            width: _responsive.widthCustom(.2),
+          ),
+          SizedBox(
+            width: _responsive.widthCustom(.7),
+            child: ListTile(
+              title: Text(book.title),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(book.subtitle),
+                  Text(book.price),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
