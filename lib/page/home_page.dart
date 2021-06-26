@@ -51,9 +51,15 @@ class BuildHome extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                            width: _responsive.widthCustom(.8),
+                            width: _responsive.widthCustom(.85),
                             child: TextFormField(
-                              decoration: InputDecoration(hintText: "Buscar"),
+                              decoration: InputDecoration(
+                                hintText: "Buscar",
+                                suffix: TextButton(
+                                  onPressed: () {},
+                                  child: Text('Buscar'),
+                                ),
+                              ),
                             ))
                       ],
                     ),
