@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bees_prueba/model/books.dart';
+import 'package:bees_prueba/tools/enums.dart';
 import 'package:bees_prueba/tools/rest_api.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -19,8 +20,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeEvent event,
   ) async* {
     if (event is LoadFirstBooks) {
-      final response = await restApi.loadBooks();
-      print(response.books.length);
+      yield state.copyWith(requestStatus: RequestStatus.waiting);
+      final bookData = await restApi.loadBooks();
+      yield state.copyWith(
+        bookData: bookData,
+        homeStatus: HomeEnum.withNewBooks,
+        requestStatus: RequestStatus.success,
+      );
     }
   }
 }
