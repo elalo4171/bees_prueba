@@ -1,4 +1,4 @@
-# bees_prueba
+# Bees_prueba
 
 En este proyecto consumo una rest api de libros, el proyecto trata de mostrar los primeros libros nuevas y que el usuario pueda realizar búsquedas personalizadas, para la pantalla principal usa BLOC para gestionar el estado de la pantalla, este BLOC se encuentra dentro de la carpeta 
 
