@@ -1,16 +1,15 @@
 # bees_prueba
 
-A new Flutter project.
+En este proyecto consumo una rest api de libros, el proyecto trata de mostrar los primeros libros nuevas y que el usuario pueda realizar búsquedas personalizadas, para la pantalla principal usa BLOC para gestionar el estado de la pantalla, este BLOC se encuentra dentro de la carpeta 
 
-## Getting Started
+`logic`
 
-This project is a starting point for a Flutter application.
+Todos los archivos de desarrollo se encuentran en la carpeta lib, la carpeta logic ya se definió arriba, la carpeta model tiene los modelos de la API, la carpeta page tiene las paginas que en este caso seria HOME PAGE y BOOK PAGE, la carpeta TOOLS tiene varios archivos 
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+El archivo api contiene todos los endpoints de la api así como el servidor.
+El archivo enums contiene los enumerados usados para mantener el estado.
+Http Answer es una clase para ayudar a recibir la información de la API.
+Request provider es una clase que nos ayuda a hacer las peticiones sin tener que estar creando objetos de http, esta clase es un Singleton por si en algún momento se tiene que mandar un token.
+La clase response es para acceder a las medidas de Media Query.
+La clase Rest api contiene todas las peticiones como tal, y se encarga de convertir la respuesta de la api a los modelos.
+ 
