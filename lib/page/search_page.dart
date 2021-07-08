@@ -48,13 +48,14 @@ class _BuildSearchState extends State<BuildSearch> {
           "Busqueda",
           style: TextStyle(color: Colors.black),
         ),
+        elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
       ),
       body: SafeArea(
         child: Column(
           children: [
             Container(
-              color: _theme.primaryColor,
+              color: _theme.accentColor,
               child: Column(
                 children: [
                   Padding(
