@@ -24,3 +24,4 @@ Para la pantalla de la búsqueda siguiendo la arquitectura anterior se creo su B
 ![home](https://github.com/elalo4171/bees_prueba/blob/main/img/Screen%20Shot%202021-07-08%20at%2012.04.44.png?raw=true)
 
 Se cambio el diseño de la pagina donde se visualiza cada libro.
+![home](https://github.com/elalo4171/bees_prueba/blob/main/img/Screen%20Shot%202021-07-08%20at%2012.09.40.png?raw=true)
