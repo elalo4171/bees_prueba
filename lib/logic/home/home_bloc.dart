@@ -45,5 +45,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         );
       }
     }
+    if (event is ChangeShowInBox) {
+      yield state.copyWith(showInBox: !state.showInBox);
+    }
   }
 }

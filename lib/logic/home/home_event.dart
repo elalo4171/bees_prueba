@@ -13,3 +13,5 @@ class ChangeTextToSearch extends HomeEvent {
 }
 
 class SearchText extends HomeEvent {}
+
+class ChangeShowInBox extends HomeEvent {}

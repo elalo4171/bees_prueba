@@ -1,4 +1,5 @@
 import 'package:bees_prueba/tools/routes.dart';
+import 'package:bees_prueba/tools/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
       initialRoute: "home",
       onGenerateRoute: routes,
       debugShowCheckedModeBanner: false,
+      theme: theme,
     );
   }
 }
