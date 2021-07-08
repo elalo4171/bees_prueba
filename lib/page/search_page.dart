@@ -43,6 +43,13 @@ class _BuildSearchState extends State<BuildSearch> {
     final _responsive = Responsive(context);
     final _theme = Theme.of(context);
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Busqueda",
+          style: TextStyle(color: Colors.black),
+        ),
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -110,6 +117,21 @@ class _BuildSearchState extends State<BuildSearch> {
                         ),
                       ],
                     );
+                  }
+                  if (state.status == FormzStatus.submissionSuccess) {
+                    if (state.data.books.length == 0) {
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Center(
+                            child: Text(
+                                "Lamentablemente no hay libros con ese titulo"),
+                          ),
+                        ],
+                      );
+                    }
                   }
                   return Expanded(
                     child: ListView.builder(

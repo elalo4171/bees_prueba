@@ -13,3 +13,7 @@ Request provider es una clase que nos ayuda a hacer las peticiones sin tener que
 La clase response es para acceder a las medidas de Media Query.
 La clase Rest api contiene todas las peticiones como tal, y se encarga de convertir la respuesta de la api a los modelos.
  
+ ## Cambios
+
+ Se actualizo el diseño de toda la app, y se creo una pantalla solo para la búsqueda, la búsqueda cuanta con paginación ya que al ver la documentación no se puede paginar los libros New por lo tanto solo la aplique en la búsqueda.  
+Para la pantalla de la búsqueda siguiendo la arquitectura anterior se creo su Bloc para manejar el estado de la pantalla
