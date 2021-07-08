@@ -204,6 +204,7 @@ class BookWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _theme = Theme.of(context);
     final _responsive = Responsive(context);
     return InkWell(
       onTap: () {
@@ -224,8 +225,14 @@ class BookWidget extends StatelessWidget {
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(book.subtitle),
-                  Text(book.price),
+                  Text(
+                    book.subtitle,
+                    style: TextStyle(color: _theme.primaryColor),
+                  ),
+                  Text(
+                    book.price,
+                    style: TextStyle(color: _theme.accentColor),
+                  ),
                 ],
               ),
             ),
@@ -249,6 +256,7 @@ class BookWidgetGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _responsive = Responsive(context);
+    final _theme = Theme.of(context);
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, "book", arguments: book);
@@ -270,8 +278,14 @@ class BookWidgetGrid extends StatelessWidget {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(book.subtitle),
-                    Text(book.price),
+                    Text(
+                      book.subtitle,
+                      style: TextStyle(color: _theme.primaryColor),
+                    ),
+                    Text(
+                      book.price,
+                      style: TextStyle(color: _theme.accentColor),
+                    ),
                   ],
                 ),
               ),
