@@ -23,9 +23,22 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     if (event is SearchText) {
       if (state.textToSearch.length > 0) {
         yield state.copyWith(status: FormzStatus.submissionInProgress);
-        final bookData = await restApi.searchBooks(state.textToSearch);
+        final bookData = await restApi.searchBooks(state.textToSearch, 0);
         yield state.copyWith(
           data: bookData,
+          status: FormzStatus.submissionSuccess,
+        );
+      }
+    }
+    if (event is LoadMore) {
+      yield state.copyWith(page: state.page + 1);
+      if (state.textToSearch.length > 0) {
+        final bookData =
+            await restApi.searchBooks(state.textToSearch, state.page);
+        BookData bookDataTemp = state.data;
+        bookDataTemp.books.addAll(bookData.books);
+        yield state.copyWith(
+          data: bookDataTemp,
           status: FormzStatus.submissionSuccess,
         );
       }

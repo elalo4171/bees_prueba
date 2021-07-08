@@ -223,31 +223,28 @@ class BookWidget extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(context, "book", arguments: book);
       },
-      child: FadeIn(
-        delay: Duration(milliseconds: 200),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.network(
-              book.image,
-              height: 100,
-              width: _responsive.widthCustom(.2),
-            ),
-            SizedBox(
-              width: _responsive.widthCustom(.7),
-              child: ListTile(
-                title: Text(book.title),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(book.subtitle),
-                    Text(book.price),
-                  ],
-                ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.network(
+            book.image,
+            height: 100,
+            width: _responsive.widthCustom(.2),
+          ),
+          SizedBox(
+            width: _responsive.widthCustom(.7),
+            child: ListTile(
+              title: Text(book.title),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(book.subtitle),
+                  Text(book.price),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

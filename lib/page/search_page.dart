@@ -18,7 +18,25 @@ class SearchPage extends StatelessWidget {
   }
 }
 
-class BuildSearch extends StatelessWidget {
+class BuildSearch extends StatefulWidget {
+  @override
+  _BuildSearchState createState() => _BuildSearchState();
+}
+
+class _BuildSearchState extends State<BuildSearch> {
+  ScrollController scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      if (scrollController.offset ==
+          scrollController.position.maxScrollExtent) {
+        final _searchBloc = context.read<SearchBloc>();
+        _searchBloc.add(LoadMore());
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final _searchBloc = context.watch<SearchBloc>();
@@ -95,6 +113,9 @@ class BuildSearch extends StatelessWidget {
                   }
                   return Expanded(
                     child: ListView.builder(
+                      addAutomaticKeepAlives: true,
+                      addRepaintBoundaries: false,
+                      controller: scrollController,
                       itemCount: state.data.books.length,
                       itemBuilder: (context, index) {
                         BookElement book = state.data.books[index];

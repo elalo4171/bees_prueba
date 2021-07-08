@@ -14,3 +14,5 @@ class ChangeText extends SearchEvent {
 }
 
 class SearchText extends SearchEvent {}
+
+class LoadMore extends SearchEvent {}

@@ -11,9 +11,9 @@ class RestApi {
     return BookData.fromJson(response.body);
   }
 
-  Future<BookData> searchBooks(String query) async {
-    final response =
-        await _requestProvider.request(Api.server, Api.search(query));
+  Future<BookData> searchBooks(String query, int page) async {
+    final response = await _requestProvider.request(
+        Api.server, Api.searchPagnitation(query, page));
     return BookData.fromJson(response.body);
   }
 
