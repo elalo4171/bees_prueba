@@ -31,178 +31,164 @@ class BuildHome extends StatelessWidget {
     final _theme = Theme.of(context);
 
     return Scaffold(
-        // appBar: AppBar(
-        //   title: Text(
-        //     "Libros",
-        //     style: TextStyle(color: Colors.black),
-        //   ),
-        //   backgroundColor: Colors.white,
-        // ),
+        appBar: AppBar(
+          title: Text(
+            "Libros",
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.white,
+        ),
         body: SafeArea(
-      child: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          if (state.homeStatus == HomeEnum.empty) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Column(
-            children: [
-              FadeInDown(
-                delay: Duration(milliseconds: 800),
-                child: Container(
-                  color: _theme.primaryColor,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 25),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, "search");
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(
-                                    15,
-                                  ),
-                                ),
-                                width: _responsive.widthCustom(.9),
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    hintText: "Buscar",
-                                    prefixIcon: Icon(Icons.search),
-                                    border: InputBorder.none,
-                                  ),
-                                  enabled: false,
+          child: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state.homeStatus == HomeEnum.empty) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Column(
+                children: [
+                  FadeInDown(
+                    delay: Duration(milliseconds: 800),
+                    child: Container(
+                      color: _theme.primaryColor,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
                                   onTap: () {
                                     Navigator.pushNamed(context, "search");
                                   },
-                                  onEditingComplete: () {},
-                                  onChanged: (v) {
-                                    if (v.isNotEmpty) {
-                                      _homeBloc.add(ChangeTextToSearch(v));
-                                    } else {
-                                      FocusScope.of(context).unfocus();
-                                      if (state.homeStatus ==
-                                          HomeEnum.withSearch) {
-                                        _homeBloc.add(LoadFirstBooks());
-                                      }
-                                    }
-                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(
+                                        15,
+                                      ),
+                                    ),
+                                    width: _responsive.widthCustom(.9),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        hintText: "Buscar",
+                                        prefixIcon: Icon(Icons.search),
+                                        border: InputBorder.none,
+                                      ),
+                                      enabled: false,
+                                      onTap: () {
+                                        Navigator.pushNamed(context, "search");
+                                      },
+                                      onEditingComplete: () {},
+                                      onChanged: (v) {
+                                        if (v.isNotEmpty) {
+                                          _homeBloc.add(ChangeTextToSearch(v));
+                                        } else {
+                                          FocusScope.of(context).unfocus();
+                                          if (state.homeStatus ==
+                                              HomeEnum.withSearch) {
+                                            _homeBloc.add(LoadFirstBooks());
+                                          }
+                                        }
+                                      },
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              // Container(
-              //   height: _responsive.heightCustom(.1),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       SizedBox(
-              //         width: _responsive.widthCustom(.7),
-              //         child:
-              //       ),
-              //       TextButton(
-              //         child: Text("Buscar"),
-              //         onPressed: () {
-              //           _homeBloc.add(SearchText());
-              //         },
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              FadeInRight(
-                delay: Duration(milliseconds: 800),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 15,
+                  FadeInRight(
+                    delay: Duration(milliseconds: 800),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          "Popular",
+                          style: _theme.textTheme.subtitle2.copyWith(
+                            fontSize: 20,
+                            color: _theme.accentColor,
+                          ),
+                        ),
+                        Spacer(),
+                        BlocBuilder<HomeBloc, HomeState>(
+                          builder: (context, state) {
+                            return IconButton(
+                                onPressed: () {
+                                  _homeBloc.add(ChangeShowInBox());
+                                },
+                                icon: Icon(
+                                  Icons.fullscreen_exit_sharp,
+                                  color: state.showInBox
+                                      ? _theme.accentColor
+                                      : null,
+                                ));
+                          },
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                      ],
                     ),
-                    Text(
-                      "Popular",
-                      style: _theme.textTheme.subtitle2.copyWith(
-                        fontSize: 20,
-                        color: _theme.accentColor,
-                      ),
-                    ),
-                    Spacer(),
-                    BlocBuilder<HomeBloc, HomeState>(
-                      builder: (context, state) {
-                        return IconButton(
-                            onPressed: () {
-                              _homeBloc.add(ChangeShowInBox());
+                  ),
+                  state.requestStatus == RequestStatus.waiting
+                      ? Center(child: CircularProgressIndicator())
+                      : Expanded(
+                          child: BlocBuilder<HomeBloc, HomeState>(
+                            builder: (context, state) {
+                              if (state.bookData.books.length == 0) {
+                                return Center(
+                                    child: Text(
+                                        "There are no books on the shelf"));
+                              }
+                              return FadeInRight(
+                                  delay: Duration(milliseconds: 800),
+                                  child: !state.showInBox
+                                      ? ListView.builder(
+                                          itemCount:
+                                              state.bookData.books.length,
+                                          itemBuilder: (context, index) {
+                                            BookElement book =
+                                                state.bookData.books[index];
+                                            return BookWidget(
+                                              book: book,
+                                              index: index,
+                                            );
+                                          },
+                                        )
+                                      : GridView.builder(
+                                          gridDelegate:
+                                              SliverGridDelegateWithMaxCrossAxisExtent(
+                                                  maxCrossAxisExtent: 250,
+                                                  childAspectRatio: .7,
+                                                  crossAxisSpacing: 0,
+                                                  mainAxisSpacing: 0),
+                                          itemCount:
+                                              state.bookData.books.length,
+                                          itemBuilder: (context, index) {
+                                            BookElement book =
+                                                state.bookData.books[index];
+                                            return BookWidgetGrid(
+                                              book: book,
+                                              index: index,
+                                            );
+                                          },
+                                        ));
                             },
-                            icon: Icon(
-                              Icons.fullscreen_exit_sharp,
-                              color:
-                                  state.showInBox ? _theme.accentColor : null,
-                            ));
-                      },
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                  ],
-                ),
-              ),
-              state.requestStatus == RequestStatus.waiting
-                  ? Center(child: CircularProgressIndicator())
-                  : Expanded(
-                      child: BlocBuilder<HomeBloc, HomeState>(
-                        builder: (context, state) {
-                          if (state.bookData.books.length == 0) {
-                            return Center(
-                                child: Text("There are no books on the shelf"));
-                          }
-                          return FadeInRight(
-                              delay: Duration(milliseconds: 800),
-                              child: !state.showInBox
-                                  ? ListView.builder(
-                                      itemCount: state.bookData.books.length,
-                                      itemBuilder: (context, index) {
-                                        BookElement book =
-                                            state.bookData.books[index];
-                                        return BookWidget(
-                                          book: book,
-                                          index: index,
-                                        );
-                                      },
-                                    )
-                                  : GridView.builder(
-                                      gridDelegate:
-                                          SliverGridDelegateWithMaxCrossAxisExtent(
-                                              maxCrossAxisExtent: 250,
-                                              childAspectRatio: .7,
-                                              crossAxisSpacing: 0,
-                                              mainAxisSpacing: 0),
-                                      itemCount: state.bookData.books.length,
-                                      itemBuilder: (context, index) {
-                                        BookElement book =
-                                            state.bookData.books[index];
-                                        return BookWidgetGrid(
-                                          book: book,
-                                          index: index,
-                                        );
-                                      },
-                                    ));
-                        },
-                      ),
-                    ),
-            ],
-          );
-        },
-      ),
-    ));
+                          ),
+                        ),
+                ],
+              );
+            },
+          ),
+        ));
   }
 }
 

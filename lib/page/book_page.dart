@@ -43,7 +43,7 @@ class _BookPageState extends State<BookPage> {
         appBar: AppBar(
           title: Text(widget.book.title, style: TextStyle(color: Colors.black)),
           backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: IconThemeData(color: _theme.accentColor),
           elevation: 0,
         ),
         body: thisBook == null
@@ -62,9 +62,13 @@ class _BookPageState extends State<BookPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(thisBook.title,
-                          style: _theme.textTheme.headline5
-                              .copyWith(fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        width: _responsive.widthCustom(.9),
+                        child: Text(thisBook.title,
+                            textAlign: TextAlign.center,
+                            style: _theme.textTheme.headline5
+                                .copyWith(fontWeight: FontWeight.bold)),
+                      ),
                     ],
                   ),
                   SizedBox(
